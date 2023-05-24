@@ -15,6 +15,7 @@ class Image
         $imageGeneralName = preg_replace("/[^\w\d=(), ]/", "_", $imageGeneralName);
         $imageGeneralName = substr($imageGeneralName, 0, 200);
 
+        clearstatcache();
         $filesInDir = scandir($imagesDir);
         rsort($filesInDir);
         $lastFile = reset($filesInDir);
