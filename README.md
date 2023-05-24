@@ -8,4 +8,5 @@ A simple skeleton code for Stable Diffusion API usage with pure PHP (no extra li
 3. Just run "php run.php run.csv" or "php run.php INTERNAL_CONFIG".
 
 **Expected behavior:**
-![](./assets/sample.png)
+
+<img height="50%" src="./assets/sample.png" width="50%" alt="Expected behavior"/>
