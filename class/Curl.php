@@ -26,8 +26,8 @@ class Curl
     public function run(string $postData): string
     {
         $this->curl = curl_init();
-        curl_setopt($this->curl, CURLOPT_TIMEOUT, 10000);
-        curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, 10000);
+        curl_setopt($this->curl, CURLOPT_TIMEOUT, 0);
+        curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, 0);
         curl_setopt($this->curl, CURLOPT_NOPROGRESS, true);
         curl_setopt($this->curl, CURLOPT_VERBOSE, false);
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
