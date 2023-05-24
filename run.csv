@@ -1,0 +1,3 @@
+iterations,images_dir,prompt,negative_prompt,seed,subseed,subseed_strength,width,height,sampler_name,cfg_scale,steps,batch_size,restore_faces,seed_resize_from_w,seed_resize_from_h,denoising_strength,extra_generation_params,index_of_first_image,styles,clip_skip,is_using_inpainting_conditioning
+1,images1,happy human,sad human,-1,-1,0,512,512,DPM++ 2M Karras,5,30,5,TRUE,-1,-1,0,[],0,[],1,FALSE
+5,images2,happy human,sad human,-1,-1,0,512,512,Euler a,5,30,2,TRUE,-1,-1,0,[],0,[],1,FALSE
