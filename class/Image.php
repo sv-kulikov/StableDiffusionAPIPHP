@@ -25,9 +25,12 @@ class Image
         }
 
         foreach ($images as $imageIndex => $imageData) {
-            $lastFileNumberAsText = (string)++$this->lastFileNumber;
-            $lastFileNumberAsText = str_pad($lastFileNumberAsText, 6, '0', STR_PAD_LEFT);
-            $finalFileName = $imagesDir . '/' . $lastFileNumberAsText . '_' . $imageGeneralName . '.png';
+            do {
+                $lastFileNumberAsText = (string)++$this->lastFileNumber;
+                $lastFileNumberAsText = str_pad($lastFileNumberAsText, 6, '0', STR_PAD_LEFT);
+                $finalFileName = $imagesDir . '/' . $lastFileNumberAsText . '_' . $imageGeneralName . '.png';
+            } while (is_file($finalFileName));
+
             $imageDecoded = base64_decode($imageData);
             file_put_contents($finalFileName, $imageDecoded);
             echo "[" . filesize($finalFileName) . " b] ";
