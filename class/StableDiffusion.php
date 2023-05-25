@@ -4,7 +4,7 @@ namespace SvKulikov\StableDiffusionAPIPHP\Helpers;
 
 class StableDiffusion
 {
-    private array $payloads = [];
+    private array $payloads;
     private Curl $curl;
     private Image $image;
 
