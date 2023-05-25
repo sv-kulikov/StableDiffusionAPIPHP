@@ -13,7 +13,7 @@ class Image
 
         $imageGeneralName = $prompt;
         $imageGeneralName = str_replace("lora:", "L=", $imageGeneralName);
-        $imageGeneralName = preg_replace("/[^\w\d=(), ]/", "_", $imageGeneralName);
+        $imageGeneralName = preg_replace("/[^\w=(), ]/", "_", $imageGeneralName);
         $imageGeneralName = substr($imageGeneralName, 0, 200);
 
         if ($this->lastFileNumber == 0) {
@@ -27,7 +27,7 @@ class Image
             $this->lastFileNumber = (int)$lastFile ?? 0;
         }
 
-        foreach ($images as $imageIndex => $imageData) {
+        foreach ($images as $imageData) {
             do {
                 $lastFileNumberAsText = (string)++$this->lastFileNumber;
                 $lastFileNumberAsText = str_pad($lastFileNumberAsText, 6, '0', STR_PAD_LEFT);
