@@ -23,7 +23,7 @@ class StableDiffusion
             echo "→ Executing task " . ($i + 1) . " of " . $totalPayloads . " ...\n";
 
             for ($j = 0; $j < $this->payloads[$i]['iterations']; $j++) {
-                echo "┌ Iteration " . ($j + 1) . " of " . $this->payloads[$i]['iterations'] . " ...\n";
+                echo "┌ Task " . ($i + 1) . " of " . $totalPayloads . ". Iteration " . ($j + 1) . " of " . $this->payloads[$i]['iterations'] . " ...\n";
                 echo "│ Requesting " . $this->payloads[$i]['data']['batch_size'] . " images ...\n";
 
                 $payloadJSON = json_encode($this->payloads[$i]['data']);
