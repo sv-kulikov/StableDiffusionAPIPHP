@@ -2,24 +2,31 @@
 
 namespace SvKulikov\StableDiffusionAPIPHP\Helpers;
 
+use Exception;
+
 class Config
 {
-    private string $csvFileName;
     private array $csvDataParsed;
 
     public function __construct(string $csvFileName)
     {
-        $this->csvFileName = $csvFileName;
-        $this->csvDataParsed = $this->parseScv($csvFileName);
+        try {
+            $this->csvDataParsed = $this->parseScv($csvFileName);
+        } catch (Exception) {
+            exit("Failed reading [" . $csvFileName . "]");
+        }
     }
 
+    /**
+     * @throws Exception
+     */
     private function parseScv(string $csvFileName): array
     {
         $temporaryStorage = [];
         $payloads = [];
 
         if (!is_file($csvFileName)) {
-            throw new \Exception("[" . $csvFileName . "] does not exist or is inaccessible");
+            throw new Exception("[" . $csvFileName . "] does not exist or is inaccessible");
         }
 
         $csvFile = fopen($csvFileName, 'r');
