@@ -2,10 +2,12 @@
 
 namespace SvKulikov\StableDiffusionAPIPHP\Helpers;
 
+use CurlHandle;
+
 class Curl
 {
     private string $url;
-    private $curl;
+    private CurlHandle $curl;
 
     public function __construct(string $url)
     {
