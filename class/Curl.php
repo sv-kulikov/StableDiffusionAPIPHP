@@ -20,11 +20,6 @@ class Curl
 
     private function initCurl(): void
     {
-
-    }
-
-    public function run(string $postData): string
-    {
         $this->curl = curl_init();
         curl_setopt($this->curl, CURLOPT_TIMEOUT, 0);
         curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, 0);
@@ -34,6 +29,10 @@ class Curl
         curl_setopt($this->curl, CURLOPT_URL, $this->url);
         curl_setopt($this->curl, CURLOPT_POST, 1);
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+    }
+
+    public function run(string $postData): string
+    {
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $postData);
         return curl_exec($this->curl);
     }
