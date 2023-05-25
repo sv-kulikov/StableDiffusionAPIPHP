@@ -19,6 +19,9 @@ class Image
         if ($this->lastFileNumber == 0) {
             clearstatcache();
             $filesInDir = scandir($imagesDir);
+            if ((!is_array($filesInDir)) || (count($filesInDir) == 0)) {
+                $filesInDir = [];
+            }
             rsort($filesInDir);
             $lastFile = reset($filesInDir);
             $this->lastFileNumber = (int)$lastFile ?? 0;
