@@ -38,13 +38,13 @@ class StableDiffusion
 
                 $deltaTime = $endTime - $startTime;
 
-                $imagesPerSec = round($this->payloads[$i]['data']['batch_size'] / $deltaTime, 2);
-                $secPerImages = round($deltaTime / $this->payloads[$i]['data']['batch_size'], 2);
+                $imagesPerSecond = round($this->payloads[$i]['data']['batch_size'] / $deltaTime, 2);
+                $secondsPerImage = round($deltaTime / $this->payloads[$i]['data']['batch_size'], 2);
 
-                if ($imagesPerSec >= 1) {
-                    $performanceMsg = "Images per second = " . $imagesPerSec . ".";
+                if ($imagesPerSecond >= 1) {
+                    $performanceMsg = "Images per second = " . $imagesPerSecond . ".";
                 } else {
-                    $performanceMsg = "Seconds per image = " . $secPerImages . ".";
+                    $performanceMsg = "Seconds per image = " . $secondsPerImage . ".";
                 }
 
                 echo "\n";
