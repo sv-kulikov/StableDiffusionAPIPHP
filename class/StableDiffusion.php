@@ -23,6 +23,7 @@ class StableDiffusion
             echo "→ Executing task " . ($i + 1) . " of " . $totalPayloads . " ...\n";
 
             for ($j = 0; $j < $this->payloads[$i]['iterations']; $j++) {
+                $startTime = microtime(true);
                 echo "┌ Task " . ($i + 1) . " of " . $totalPayloads . ". Iteration " . ($j + 1) . " of " . $this->payloads[$i]['iterations'] . " ...\n";
                 echo "│ Requesting " . $this->payloads[$i]['data']['batch_size'] . " images ...\n";
 
@@ -32,8 +33,22 @@ class StableDiffusion
                 echo "│ Got " . count($dataDecoded->images) . " images, saving to [" . $this->payloads[$i]['images_dir'] . "]... \n";
                 echo "│ ";
                 $this->image->saveImages($this->payloads[$i]['images_dir'], $this->payloads[$i]['data']['prompt'], $dataDecoded->images);
+
+                $endTime = microtime(true);
+
+                $deltaTime = $endTime - $startTime;
+
+                $imagesPerSec = round($this->payloads[$i]['data']['batch_size'] / $deltaTime, 2);
+                $secPerImages = round($deltaTime / $this->payloads[$i]['data']['batch_size'], 2);
+
+                if ($imagesPerSec >= 1) {
+                    $performanceMsg = "Images per second = " . $imagesPerSec . ".";
+                } else {
+                    $performanceMsg = "Seconds per image = " . $secPerImages . ".";
+                }
+
                 echo "\n";
-                echo "└ Iteration " . ($j + 1) . " of " . $this->payloads[$i]['iterations'] . " done.\n";
+                echo "└ Iteration " . ($j + 1) . " of " . $this->payloads[$i]['iterations'] . " done. " . $performanceMsg . "\n";
             }
         }
     }
