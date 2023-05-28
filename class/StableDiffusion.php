@@ -36,7 +36,7 @@ class StableDiffusion
         $imagesToCreateGlobal = 0;
 
         for ($i = 0; $i < $totalPayloads; $i++) {
-            $imagesToCreateGlobal += $this->payloads[$i]['data']['batch_size'] * $this->payloads[$i]['data']['iterations'];
+            $imagesToCreateGlobal += $this->payloads[$i]['data']['batch_size'] * $this->payloads[$i]['iterations'];
         }
 
         for ($i = 0; $i < $totalPayloads; $i++) {
