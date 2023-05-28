@@ -15,6 +15,18 @@ class StableDiffusion
         $this->image = $image;
     }
 
+    private function getTimeInHMS(int|float $seconds): array
+    {
+        $seconds = round($seconds);
+        $modulusSeconds = $seconds % 60;
+        $minutes = intdiv($seconds, 60);
+        $modulusMinutes = $minutes % 60;
+        $hours = intdiv($minutes, 60);
+        return array('H' => str_pad((string)$hours, 2, '0', STR_PAD_LEFT),
+                     'M' => str_pad((string)$modulusMinutes,2, '0', STR_PAD_LEFT),
+                     'S' => str_pad((string)$modulusSeconds,2, '0', STR_PAD_LEFT));
+    }
+
     public function run(): void
     {
         $startTimeGlobal = microtime(true);
@@ -24,7 +36,7 @@ class StableDiffusion
         $imagesToCreateGlobal = 0;
 
         for ($i = 0; $i < $totalPayloads; $i++) {
-            $imagesToCreateGlobal += $this->payloads[$i]['data']['batch_size'];
+            $imagesToCreateGlobal += $this->payloads[$i]['data']['batch_size'] * $this->payloads[$i]['data']['iterations'];
         }
 
         for ($i = 0; $i < $totalPayloads; $i++) {
@@ -62,12 +74,14 @@ class StableDiffusion
 
                 if ($imagesPerSecondGlobal >= 1) {
                     $estimatedTimeLeft = round(($imagesToCreateGlobal - $imagesCreatedGlobal) / $imagesPerSecondGlobal);
+                    $estimatedTimeLeftHMS = $this->getTimeInHMS($estimatedTimeLeft);
                     $performanceMsg .= " Images per second global = " . $imagesPerSecondGlobal . ".";
-                    $performanceMsg .= " ETA = " . sprintf('%02d:%02d:%02d', (int)($estimatedTimeLeft / 3600), (int)($estimatedTimeLeft / 60 % 60), (int)($estimatedTimeLeft % 60)) . ".";
+                    $performanceMsg .= " ETA = " . $estimatedTimeLeftHMS['H'] . ":" . $estimatedTimeLeftHMS['M'] . ":" . $estimatedTimeLeftHMS['S'] . ".";
                 } else {
                     $estimatedTimeLeft = round($secondsPerImageGlobal * ($imagesToCreateGlobal - $imagesCreatedGlobal));
+                    $estimatedTimeLeftHMS = $this->getTimeInHMS($estimatedTimeLeft);
                     $performanceMsg .= " Seconds per image global = " . $secondsPerImageGlobal . ".";
-                    $performanceMsg .= " ETA = " . sprintf('%02d:%02d:%02d', (int)($estimatedTimeLeft / 3600), (int)($estimatedTimeLeft / 60 % 60), (int)($estimatedTimeLeft % 60)) . ".";
+                    $performanceMsg .= " ETA = " . $estimatedTimeLeftHMS['H'] . ":" . $estimatedTimeLeftHMS['M'] . ":" . $estimatedTimeLeftHMS['S'] . ".";
                 }
 
                 echo "\n";
