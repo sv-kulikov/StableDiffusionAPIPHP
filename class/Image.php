@@ -22,8 +22,8 @@ class Image
             if ((!is_array($filesInDir)) || (count($filesInDir) == 0)) {
                 $filesInDir = [];
             }
-            rsort($filesInDir);
-            $lastFile = reset($filesInDir);
+            sort($filesInDir, SORT_NUMERIC);
+            $lastFile = end($filesInDir);
             $this->lastFileNumber = (int)$lastFile ?? 0;
         }
 
